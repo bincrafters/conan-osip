@@ -32,22 +32,47 @@ class LibOSIPConan(ConanFile):
 
     def build(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            env_build = VisualStudioBuildEnvironment(self)
-            with tools.environment_append(env_build.vars):
-                with tools.chdir(os.path.join(self.release_folder, "platform", "vsnet")):
-                    msvc_command = tools.msvc_build_command(self.settings, "osip.sln", targets=["osip2", "osipparser2"], upgrade_project=True)
-                    self.run(msvc_command)
+            self._msvc_build()
+        elif self.settings.os == "Windows" and self.settings.compiler == "gcc":
+            self._mingw_build()
         else:
-            env_build = AutoToolsBuildEnvironment(self)
-            env_build.fpic = True
-            with tools.environment_append(env_build.vars):
-                with tools.chdir(self.release_folder):
-                    configure_args = ['--prefix=%s' % self.install_dir]
-                    configure_args.append('--enable-shared' if self.options.shared else '--disable-shared')
-                    configure_args.append('--enable-static' if not self.options.shared else '--disable-static')
-                    self._run_cmd("./configure %s" % ' '.join(configure_args))
-                    self._run_cmd("make")
-                    self._run_cmd("make install")
+            self._linux_osx_build()
+
+    def _msvc_build(self):
+        env_build = VisualStudioBuildEnvironment(self)
+        with tools.environment_append(env_build.vars):
+            with tools.chdir(os.path.join(self.release_folder, "platform", "vsnet")):
+                msvc_command = tools.msvc_build_command(self.settings, "osip.sln", targets=["osip2", "osipparser2"], upgrade_project=True)
+                self.run(msvc_command)
+
+    def _linux_osx_build(self):
+        env_build = AutoToolsBuildEnvironment(self)
+        env_build.fpic = True
+        with tools.environment_append(env_build.vars):
+            with tools.chdir(self.release_folder):
+                configure_args = ['--prefix=%s' % self.install_dir]
+                configure_args.append('--enable-shared' if self.options.shared else '--disable-shared')
+                configure_args.append('--enable-static' if not self.options.shared else '--disable-static')
+                env_build.configure(args=configure_args)
+                env_build.make(args=["all"])
+                env_build.make(args=["install"])
+
+    def _mingw_build(self):
+        env_build = AutoToolsBuildEnvironment(self)
+        env_build.fpic = True
+        with tools.environment_append(env_build.vars):
+            with tools.chdir(self.release_folder):
+                configure_args = ['--prefix=%s' % self.install_dir]
+                configure_args.append('--enable-shared' if self.options.shared else '--disable-shared')
+                configure_args.append('--enable-static' if not self.options.shared else '--disable-static')
+                if self.settings.os == "Windows" and self.settings.compiler == "gcc" and self.settings.arch == "x86_64":
+                    configure_args.append('--host=x86_64-w64-mingw32')
+                if self.settings.os == "Windows" and self.settings.compiler == "gcc" and self.settings.arch == "x86":
+                    configure_args.append('--build=i686-w64-mingw32')
+                    configure_args.append('--host=i686-w64-mingw32')
+                tools.run_in_windows_bash(self, tools.unix_path("./configure %s" % ' '.join(configure_args)))
+                tools.run_in_windows_bash(self, "make")
+                tools.run_in_windows_bash(self, "make install")
 
     def _visual_platform_and_config(self):
         platform = "Win32" if self.settings.arch == "x86" else "x64"
