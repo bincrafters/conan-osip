@@ -7,11 +7,11 @@
 
 ![Conan oSIP](conan_osip.png)
 
-oSIP has been designed to provide the Internet Community a simple way to support the Session Initiation Protocol. SIP is described in the RFC3261
+**oSIP** has been designed to provide the Internet Community a simple way to support the Session Initiation Protocol. SIP is described in the [RFC3261](https://www.ietf.org/rfc/rfc3261.txt)
 
 [Conan.io](https://conan.io) package for [oSIP](https://savannah.gnu.org/projects/osip/) project
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/uilianries/conan/osip%3Auilianries/5.0.0%3Astable).
+The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/uilianries/conan/osip%3Auilianries).
 
 ## Build packages
 
