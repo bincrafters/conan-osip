@@ -1,6 +1,7 @@
-[![Build Status](https://travis-ci.org/uilianries/conan-osip.svg?branch=release/5.0.0)](https://travis-ci.org/uilianries/conan-osip)
-[![Build status](https://ci.appveyor.com/api/projects/status/v2haakhmv2h5mgjl?svg=true)](https://ci.appveyor.com/project/uilianries/conan-osip)
+[![Travis Build Status](https://travis-ci.org/uilianries/conan-osip.svg?branch=release/5.0.0)](https://travis-ci.org/uilianries/conan-osip)
+[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/v2haakhmv2h5mgjl/branch/release/5.0.0?svg=true)](https://ci.appveyor.com/project/uilianries/conan-osip/branch/release/5.0.0)
 [![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](http://www.gnu.org/licenses/lgpl-2.1)
+[![Download](https://api.bintray.com/packages/uilianries/conan/osip%3Auilianries/images/download.svg) ](https://bintray.com/uilianries/conan/osip%3Auilianries/_latestVersion)
 
 # Conan oSIP
 
