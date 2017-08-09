@@ -1,10 +1,12 @@
+[![Build Status](https://travis-ci.org/uilianries/conan-osip.svg?branch=release/5.0.0)](https://travis-ci.org/uilianries/conan-osip)
+[![Build status](https://ci.appveyor.com/api/projects/status/v2haakhmv2h5mgjl?svg=true)](https://ci.appveyor.com/project/uilianries/conan-osip)
 [![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](http://www.gnu.org/licenses/lgpl-2.1)
 
 # Conan oSIP
 
 ![Conan oSIP](conan_osip.png)
 
-# oSIP has been designed to provide the Internet Community a simple way to support the Session Initiation Protocol. SIP is described in the RFC3261
+oSIP has been designed to provide the Internet Community a simple way to support the Session Initiation Protocol. SIP is described in the RFC3261
 
 [Conan.io](https://conan.io) package for [oSIP](https://savannah.gnu.org/projects/osip/) project
 

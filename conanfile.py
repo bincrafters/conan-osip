@@ -41,6 +41,7 @@ class LibOSIPConan(ConanFile):
         self.copy(pattern="*.a", dst="lib", src=os.path.join(self.install_dir, "lib"), keep_path=False)
         self.copy(pattern="*.so*", dst="lib", src=os.path.join(self.install_dir, "lib"), keep_path=False)
         self.copy(pattern="*.la", dst="lib", src=os.path.join(self.install_dir, "lib"), keep_path=False)
+        self.copy(pattern="*.dylib", dst="lib", src=os.path.join(self.install_dir, "lib"), keep_path=False)
         self.copy(pattern="*.pc", dst=os.path.join("lib", "pkgconfig"), src=os.path.join(self.install_dir, "lib", "pkgconfig"), keep_path=False)
 
     def package_info(self):
