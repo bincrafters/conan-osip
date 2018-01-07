@@ -16,7 +16,7 @@ class LibOSIPConan(ConanFile):
     url = "http://github.com/bincrafters/conan-osip"
     author = "Bincrafters <bincrafters@gmail.com>"
     homepage = "https://savannah.gnu.org/projects/osip/"
-    license = "https://www.gnu.org/licenses/lgpl-2.1.html"
+    license = "https://git.savannah.gnu.org/cgit/osip.git/tree/COPYING"
     description = "A library to provide the Internet Community a simple way to support the Session Initiation Protocol"
     exports = ["LICENSE.md"]
     source_subfolder = "source_subfolder"
