@@ -1,55 +1,54 @@
-[![Travis Build Status](https://travis-ci.org/uilianries/conan-osip.svg?branch=release/5.0.0)](https://travis-ci.org/uilianries/conan-osip)
-[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/v2haakhmv2h5mgjl/branch/release/5.0.0?svg=true)](https://ci.appveyor.com/project/uilianries/conan-osip/branch/release/5.0.0)
-[![License: LGPL v2.1](https://img.shields.io/badge/License-LGPL%20v2.1-blue.svg)](http://www.gnu.org/licenses/lgpl-2.1)
-[![Download](https://api.bintray.com/packages/uilianries/conan/osip%3Auilianries/images/download.svg) ](https://bintray.com/uilianries/conan/osip%3Auilianries/_latestVersion)
-
 # Conan oSIP
 
-![Conan oSIP](conan_osip.png)
+![Conan oSIP logo](logo.png)
 
-**oSIP** has been designed to provide the Internet Community a simple way to support the Session Initiation Protocol. SIP is described in the [RFC3261](https://www.ietf.org/rfc/rfc3261.txt)
+## Conan.io package recipe for [oSIP](https://savannah.gnu.org/projects/osip/) project.
 
-[Conan.io](https://conan.io) package for [oSIP](https://savannah.gnu.org/projects/osip/) project
+oSIP has been designed to provide the Internet Community a simple way to support the Session Initiation Protocol. SIP is described in the RFC3261
 
-The packages generated with this **conanfile** can be found in [Bintray](https://bintray.com/uilianries/conan/osip%3Auilianries).
+## Package Status
 
-## Build packages
+| Bintray | Appveyor | Travis |
+|---------|-----------|--------|
+| [![Download](https://api.bintray.com/packages/bincrafters/public-conan/osip%3Abincrafters/images/download.svg) ](https://bintray.com/bincrafters/public-conan/osip%3Abincrafters/_latestVersion) | [![Build status](https://ci.appveyor.com/api/projects/status/github/bincrafters/conan-osip?branch=stable%2F5.0.0&svg=true)](https://ci.appveyor.com/project/bincrafters/conan-osip) | [![Build Status](https://travis-ci.org/bincrafters/conan-osip.svg?branch=stable%2F5.0.0)](https://travis-ci.org/bincrafters/conan-osip) |
 
-Download conan client from [Conan.io](https://conan.io) and run:
 
-    $ python build.py
+## Conan.io Information
 
-If your are in Windows you should run it from a VisualStudio console in order to get "mc.exe" in path.
+Bincrafters packages can be found in the following public Conan repository:
 
-## Upload packages to server
+[Bincrafters Public Conan Repository on Bintray](https://bintray.com/bincrafters/public-conan)
 
-    $ conan upload osip/5.0.0@uilianries/stable --all
+*Note: You can click the "Set Me Up" button on the Bintray page above for instructions on using packages from this repository.*
 
-## Reuse the packages
+## Issues
 
-### Basic setup
+If you wish to report an issue or make a request for a Bincrafters package, please do so here:  
 
-    $ conan install osip/5.0.0@uilianries/stable
+[Bincrafters Community Issues](https://github.com/bincrafters/community/issues)
 
-### Project setup
+## General Information
 
-If you handle multiple dependencies in your project is better to add a *conanfile.txt*
+This GIT repository is managed by the Bincrafters team and holds files related to Conan.io.  For detailed information about Bincrafters and Conan.io, please visit the following resources:
 
-    [requires]
-    osip/5.0.0@uilianries/stable
+[Bincrafters Wiki - Common README](https://github.com/bincrafters/community/wiki/Common-README.md)
 
-    [options]
-    osip:shared=True # False
+[Bincrafters Technical Documentation](http://bincrafters.readthedocs.io/en/latest/)
 
-    [generators]
-    txt
-    cmake
+[Bincrafters Blog](https://bincrafters.github.io)
 
-Complete the installation of requirements for your project running:</small></span>
+## License Information
 
-    conan install .
+Bincrafters packages are hosted on [Bintray](https://bintray.com) and contain Open-Source software which is licensed by the software's maintainers and NOT Bincrafters.  For each Open-Source package published by Bincrafters, the packaging process obtains the required license files along with the original source files from the maintainer, and includes these license files in the generated Conan packages.  
 
-Project setup installs the library (and all his dependencies) and generates the files *conanbuildinfo.txt* and *conanbuildinfo.cmake* with all the paths and variables that you need to link with your dependencies.
+The contents of this GIT repository are completely separate from the software being packaged and therefor licensed separately.  The license for all files contained in this GIT repository are defined in the [LICENSE.md](LICENSE.md) file in this repository.  The licenses included with all Conan packages published by Bincrafters can be found in the Conan package directories in the following locations, relative to the Conan Cache root (`~/.conan` by default):
 
-### License
-[LGPL-2.1](LICENSE)
+### License(s) for packaged software:
+
+    ~/.conan/data/<pkg_name>/<pkg_version>/bincrafters/package/<random_package_id>/license/<LICENSE_FILES_HERE>
+
+*Note :   The most common filenames for OSS licenses are `LICENSE` AND `COPYING` without file extensions.*
+
+### License for Bincrafters recipe:
+
+    ~/.conan/data/<pkg_name>/<pkg_version>/bincrafters/export/LICENSE.md
