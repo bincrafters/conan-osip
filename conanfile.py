@@ -95,8 +95,8 @@ class LibOSIPConan(ConanFile):
                 self.copy(pattern="*.dll", dst="bin", src=src, keep_path=False)
                 self.copy(pattern="*.lib", dst="lib", src=src, keep_path=False)
             else:
-                src = os.path.join(self.build_folder, "libosip2-%s" % self.version
-                self.copy(pattern="*.lib", dst="lib", src=src, "lib"), keep_path=False)
+                src = os.path.join(self.build_folder, "libosip2-%s" % self.version)
+                self.copy(pattern="*.lib", dst="lib", src=src, keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
