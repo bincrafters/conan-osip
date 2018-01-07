@@ -1,7 +1,7 @@
 """Conan receipt package for oSIP library
 """
 import os
-from conans import ConanFile, AutoToolsBuildEnvironment, VisualStudioBuildEnvironment, tools
+from conans import ConanFile, AutoToolsBuildEnvironment, CMake, tools
 
 
 class LibOSIPConan(ConanFile):
@@ -19,6 +19,7 @@ class LibOSIPConan(ConanFile):
     license = "https://git.savannah.gnu.org/cgit/osip.git/tree/COPYING"
     description = "A library to provide the Internet Community a simple way to support the Session Initiation Protocol"
     exports = ["LICENSE.md"]
+    exports_sources = ["CMakeLists.txt"]
     source_subfolder = "source_subfolder"
 
     def source(self):
@@ -31,19 +32,16 @@ class LibOSIPConan(ConanFile):
         del self.settings.compiler.libcxx
 
     def build(self):
-        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            self._msvc_build()
-        elif self.settings.os == "Windows" and self.settings.compiler == "gcc":
-            self._mingw_build()
+        if self.settings.os == "Windows":
+            self._cmake_build()
         else:
             self._linux_osx_build()
 
-    def _msvc_build(self):
-        env_build = VisualStudioBuildEnvironment(self)
-        with tools.environment_append(env_build.vars):
-            with tools.chdir(os.path.join(self.source_subfolder, "platform", "vsnet")):
-                msvc_command = tools.msvc_build_command(self.settings, "osip.sln", targets=["osip2", "osipparser2"], upgrade_project=True)
-                self.run(msvc_command)
+    def _cmake_build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
+        cmake.install()
 
     def _linux_osx_build(self):
         env_build = AutoToolsBuildEnvironment(self)
@@ -57,34 +55,8 @@ class LibOSIPConan(ConanFile):
                 env_build.make(args=["-s", "all"])
                 env_build.make(args=["-s", "install"])
 
-    def _mingw_build(self):
-        env_build = AutoToolsBuildEnvironment(self)
-        with tools.environment_append(env_build.vars):
-            with tools.chdir(self.source_subfolder):
-                configure_args = ['--prefix="%s"' % self.package_folder]
-                configure_args.append('--enable-shared' if self.options.shared else '--disable-shared')
-                configure_args.append('--enable-static' if not self.options.shared else '--disable-static')
-                tools.run_in_windows_bash(self, "./configure %s" % ' '.join(configure_args))
-                tools.run_in_windows_bash(self, "make")
-                tools.run_in_windows_bash(self, "make install")
-
-    def _visual_platform_and_config(self):
-        platform = "Win32" if self.settings.arch == "x86" else "x64"
-        configuration = "Release" if self.options.shared else "ReleaseStatic"
-        return platform, configuration
-
     def package(self):
         self.copy("COPYING", dst="licenses", src=self.source_subfolder, keep_path=False)
-        if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
-            self.copy(pattern="*", dst="include", src=os.path.join(self.source_subfolder, "include"))
-            platform, configuration = self._visual_platform_and_config()
-            src = "%s/contrib/windows/%s/%s" % (self.source_subfolder, platform, configuration)
-            if self.options.shared:
-                self.copy(pattern="*.dll", dst="bin", src=src, keep_path=False)
-                self.copy(pattern="*.lib", dst="lib", src=src, keep_path=False)
-            else:
-                src = os.path.join(self.build_folder, "libosip2-%s" % self.version)
-                self.copy(pattern="*.lib", dst="lib", src=src, keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = tools.collect_libs(self)
