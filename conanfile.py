@@ -30,12 +30,6 @@ class LibOSIPConan(ConanFile):
     def configure(self):
         del self.settings.compiler.libcxx
 
-    def _run_cmd(self, command):
-        if self.settings.os == "Windows":
-            tools.run_in_windows_bash(self, tools.unix_path(command))
-        else:
-            self.run(command)
-
     def build(self):
         if self.settings.os == "Windows" and self.settings.compiler == "Visual Studio":
             self._msvc_build()
@@ -56,7 +50,7 @@ class LibOSIPConan(ConanFile):
         env_build.fpic = True
         with tools.environment_append(env_build.vars):
             with tools.chdir(self.source_subfolder):
-                configure_args = ['--prefix=%s' % self.package_folder]
+                configure_args = ['--prefix="%s"' % self.package_folder]
                 configure_args.append('--enable-shared' if self.options.shared else '--disable-shared')
                 configure_args.append('--enable-static' if not self.options.shared else '--disable-static')
                 env_build.configure(args=configure_args)
@@ -65,20 +59,14 @@ class LibOSIPConan(ConanFile):
 
     def _mingw_build(self):
         env_build = AutoToolsBuildEnvironment(self)
-        env_build.fpic = True
         with tools.environment_append(env_build.vars):
             with tools.chdir(self.source_subfolder):
-                configure_args = ['--prefix=%s' % self.package_folder]
+                configure_args = ['--prefix="%s"' % self.package_folder]
                 configure_args.append('--enable-shared' if self.options.shared else '--disable-shared')
                 configure_args.append('--enable-static' if not self.options.shared else '--disable-static')
-                if self.settings.os == "Windows" and self.settings.compiler == "gcc" and self.settings.arch == "x86_64":
-                    configure_args.append('--host=x86_64-w64-mingw32')
-                if self.settings.os == "Windows" and self.settings.compiler == "gcc" and self.settings.arch == "x86":
-                    configure_args.append('--build=i686-w64-mingw32')
-                    configure_args.append('--host=i686-w64-mingw32')
-                tools.run_in_windows_bash(self, tools.unix_path("./configure %s" % ' '.join(configure_args)))
-                tools.run_in_windows_bash(self, "make -s")
-                tools.run_in_windows_bash(self, "make -s install")
+                tools.run_in_windows_bash(self, "./configure %s" % ' '.join(configure_args))
+                tools.run_in_windows_bash(self, "make")
+                tools.run_in_windows_bash(self, "make install")
 
     def _visual_platform_and_config(self):
         platform = "Win32" if self.settings.arch == "x86" else "x64"
