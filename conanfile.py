@@ -48,7 +48,7 @@ class LibOSIPConan(ConanFile):
         env_build.fpic = True
         with tools.environment_append(env_build.vars):
             with tools.chdir(self.source_subfolder):
-                configure_args = ['--prefix="%s"' % self.package_folder]
+                configure_args = ['--prefix=%s' % self.package_folder]
                 configure_args.append('--enable-shared' if self.options.shared else '--disable-shared')
                 configure_args.append('--enable-static' if not self.options.shared else '--disable-static')
                 env_build.configure(args=configure_args)
