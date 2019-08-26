@@ -1,5 +1,5 @@
+cmake_minimum_required(VERSION 2.8.12)
 project(conan-osip)
-cmake_minimum_required(VERSION 2.8.11)
 
 ## Conan Setup #################################################################
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)

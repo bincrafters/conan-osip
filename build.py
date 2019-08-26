@@ -1,4 +1,3 @@
-"""This script build Conan.io package to multiple platforms."""
 from bincrafters import build_template_default
 
 

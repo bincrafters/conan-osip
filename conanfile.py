@@ -1,35 +1,33 @@
-"""Conan receipt package for oSIP library
-"""
 import os
 from conans import ConanFile, AutoToolsBuildEnvironment, CMake, tools
 
 
 class LibOSIPConan(ConanFile):
-    """Download oSIP source, build and create package
-    """
     name = "osip"
-    version = "5.0.0"
+    version = "5.1.0"
     generators = "cmake", "txt"
     settings = "os", "arch", "compiler", "build_type"
-    options = {"shared": [True, False] }
+    options = {"shared": [True, False]}
     default_options = {'shared': 'False'}
     url = "http://github.com/bincrafters/conan-osip"
     author = "Bincrafters <bincrafters@gmail.com>"
     homepage = "https://savannah.gnu.org/projects/osip/"
-    license = "https://git.savannah.gnu.org/cgit/osip.git/tree/COPYING"
+    license = "LGPL-2.1-or-later"
     description = "A library to provide the Internet Community a simple way to support the Session Initiation Protocol"
+    topics = ("conan", "osip")
     exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
     _source_subfolder = "source_subfolder"
 
     def source(self):
         source_url = "https://ftp.gnu.org/gnu/osip"
-        tools.get("{0}/libosip2-{1}.tar.gz".format(source_url, self.version))
+        tools.get("{0}/libosip2-{1}.tar.gz".format(source_url, self.version), sha256="40573a997a656f967b2b5ebafbd36d7f1d4a4634abcf312643854057d061f145")
         extracted_dir = "libosip2-" + self.version
         os.rename(extracted_dir, self._source_subfolder)
 
     def configure(self):
         del self.settings.compiler.libcxx
+        del self.settings.compiler.cppstd
 
     def build(self):
         if self.settings.os == "Windows":
