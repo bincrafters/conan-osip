@@ -10,7 +10,6 @@ class LibOSIPConan(ConanFile):
     options = {"shared": [True, False]}
     default_options = {'shared': 'False'}
     url = "http://github.com/bincrafters/conan-osip"
-    author = "Bincrafters <bincrafters@gmail.com>"
     homepage = "https://savannah.gnu.org/projects/osip/"
     license = "LGPL-2.1-or-later"
     description = "A library to provide the Internet Community a simple way to support the Session Initiation Protocol"
