@@ -14,7 +14,6 @@ class LibOSIPConan(ConanFile):
     license = "LGPL-2.1-or-later"
     description = "A library to provide the Internet Community a simple way to support the Session Initiation Protocol"
     topics = ("conan", "osip")
-    exports = ["LICENSE.md"]
     exports_sources = ["CMakeLists.txt"]
     _source_subfolder = "source_subfolder"
 
